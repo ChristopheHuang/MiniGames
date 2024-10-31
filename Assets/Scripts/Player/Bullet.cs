@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     public float speed = 30.0f;
 
     private Vector3 direction;
+    
+    public GameObject hitEffect; 
 
     public void Initialize(Vector3 shootDirection)
     {
@@ -22,6 +24,14 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(GameObject.Instantiate(hitEffect, transform.position, Quaternion.identity), 1);
+        }
     }
 
     private void Deactivate()

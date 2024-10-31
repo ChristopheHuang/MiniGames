@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     private Color originalColor;
     public float flashDuration = 0.1f;
     
-    public GameObject hitEffect; 
     
     public static event Action OnBroadcastMessage;
 
@@ -45,11 +44,6 @@ public class Enemy : MonoBehaviour
         
         StartCoroutine(FlashWhite());
         
-        if (hitEffect != null)
-        {
-            hitEffect.SetActive(true);
-        }
-
         if (currentHealth <= 0)
         {
             Die();
