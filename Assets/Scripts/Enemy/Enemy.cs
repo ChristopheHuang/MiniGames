@@ -53,7 +53,12 @@ public class Enemy : MonoBehaviour
         SendMessageToManager();
         Destroy(gameObject);
     }
-
+    
+    private void SendMessageToManager()
+    {
+        OnBroadcastMessage?.Invoke();
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bullet"))
@@ -61,16 +66,6 @@ public class Enemy : MonoBehaviour
             BulletPool.Instance.ReturnBullet(other.gameObject); 
             TakeDamage(other.gameObject.GetComponent<Bullet>().damage);
         }
-    }
-
-    private void SendMessageToManager()
-    {
-        OnBroadcastMessage?.Invoke();
-    }
-
-    private void OnDestroy()
-    {
-        SendMessageToManager();
     }
 
     private System.Collections.IEnumerator FlashWhite()

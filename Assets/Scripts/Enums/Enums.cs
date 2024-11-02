@@ -8,11 +8,10 @@ public enum EnemyType
     Boos = 4
 }
 
-[Flags]
 public enum SkillType
 {
-    BuffGate = 1,
-    Blade = 2,
-    ShootUpgrade = 4,
-    Shield = 8
+    BuffGate,
+    Blade,
+    ShootUpgrade,
+    Shield
 }

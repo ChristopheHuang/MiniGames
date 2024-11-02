@@ -200,7 +200,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 381867520086584573}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5770394429769589254}
+        m_TargetAssemblyTypeName: Skill, Assembly-CSharp
+        m_MethodName: ButtonEvents
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5770394429769589254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,4 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398f946727dd2324ea367271bac88c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalNum: 0
+  name: 
   skillData: {fileID: 11400000, guid: 96355073b246d6a4f82f5b969f9b4093, type: 2}
+  buffGatePrefab: {fileID: 5815454909443941210, guid: 59091b22bcedceb4ca38fe3e89dc11c7, type: 3}

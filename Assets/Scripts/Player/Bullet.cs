@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,8 +13,7 @@ public class Bullet : MonoBehaviour
     public void Initialize(Vector3 shootDirection)
     {
         float randomOffsetX = Random.Range(-0.05f, 0.05f);
-        float randomOffsetY = Random.Range(-0.05f, 0.05f);
-        Vector3 randomOffset = new Vector3(randomOffsetX, randomOffsetY, 0);
+        Vector3 randomOffset = new Vector3(randomOffsetX, 0, 0);
 
         direction = (shootDirection + randomOffset).normalized;
         Invoke(nameof(Deactivate), 3.0f); 
