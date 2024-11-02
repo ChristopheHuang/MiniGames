@@ -181,6 +181,7 @@ MonoBehaviour:
       spawnWeight: 15
     rate: 0.3
   spawnPoint: {fileID: 3530901359832664641}
+  waveOS: {fileID: 11400000, guid: 006c066564fa18c41a18a2c3a2c601b4, type: 2}
 --- !u!4 &7888510995738827279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dda80b78e1a649148bda041462f96985, type: 3}

@@ -7,7 +7,8 @@ public class Spawner : MonoBehaviour
 {
     public List<Wave> waveList;
     public Transform spawnPoint;
-    private bool isSpawning = false;
+    
+    public WaveOS waveOS;
 
     void Start()
     {
@@ -18,7 +19,6 @@ public class Spawner : MonoBehaviour
     {
         foreach (Wave wave in waveList)
         {
-            isSpawning = true;
             yield return StartCoroutine(SpawnEnemiesInWave(wave));
             yield return new WaitForSeconds(10f);
         }
@@ -34,8 +34,6 @@ public class Spawner : MonoBehaviour
             Instantiate(enemyToSpawn, spawnPoint.position, quaternion.identity);
             yield return new WaitForSeconds(wave.rate);
         }
-
-        isSpawning = false;
     }
 
     private List<GameObject> CreateWeightedEnemyList(List<EnemySpawnData> enemySpawnDataList)

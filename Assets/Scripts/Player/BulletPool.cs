@@ -22,12 +22,7 @@ public class BulletPool : MonoBehaviour
         poolQueue = new Queue<GameObject>();
         InitializePool(1000);
     }
-
-    private void Update()
-    {
-    }
-
-
+    
     private void InitializePool(int count)
     {
         for (int i = 0; i < count; i++)

@@ -19,11 +19,16 @@ public class Player : MonoBehaviour
     
     private PlayerController _playerController;
 
-    public float moveSpeed = 5.0f;
     public Transform shootPoint;
-    public GameObject bulletPrefab;
     public float shootInterval = 0.2f;
     private float currentInterval;
+    public int shootCounts = 1;
+    
+    public int maxAmmo = 30;          
+    private int currentAmmo;          
+    public float reloadTime = 3.0f;   
+    private bool isReloading = false; 
+    private Vector3 targetPos;
 
     private void Start()
     {
@@ -31,10 +36,10 @@ public class Player : MonoBehaviour
         _playerController.PlayerMapping.Enable();
         currentInterval = shootInterval;
 
+        targetPos = transform.forward;
         StartCoroutine(ShootRoutine()); 
     }
 
-    private Vector3 targetPos;
     float lastInterval;
     private void Update()
     {
@@ -43,35 +48,60 @@ public class Player : MonoBehaviour
             currentInterval = shootInterval;
         }
         lastInterval = shootInterval;
-        
-        Vector2 moveInput = _playerController.PlayerMapping.Move.ReadValue<Vector2>();
-        if (moveInput != Vector2.zero)
-        {
-            transform.Translate(new Vector3(moveInput.x, 0, moveInput.y) * Time.deltaTime * moveSpeed, Space.World);
-        }
-        
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began)
+        SearchEnemyInRange();
+        
+        transform.LookAt(targetPos);
+    }
+
+    public float searchRange = 10.0f;
+    
+    private void SearchEnemyInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, searchRange);
+        foreach (var collider in colliders)
+        {
+            if (collider.CompareTag("Enemy"))
             {
-                Vector3 screenPos = new Vector3(touch.position.x, touch.position.y, Camera.main.WorldToScreenPoint(transform.position).z);
-                targetPos = Camera.main.ScreenToWorldPoint(screenPos);
-                targetPos.y = transform.position.y;
+                targetPos = collider.transform.position;
+                break;
             }
-        }
-        if(targetPos != Vector3.zero)
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);                
+        }        
     }
 
     private IEnumerator ShootRoutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(currentInterval); 
-            GameObject bullet = BulletPool.Instance.GetBullet(shootPoint.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(transform.forward);
+            if (isReloading)
+            {
+                yield return null;
+                continue;
+            }
+
+            if (currentAmmo <= 0) 
+            {
+                StartCoroutine(Reload()); 
+                yield return new WaitForSeconds(reloadTime);
+            }
+            else
+            {
+                yield return new WaitForSeconds(currentInterval); 
+                for (int i = 0; i < shootCounts && currentAmmo > 0; i++)
+                {
+                    GameObject bullet = BulletPool.Instance.GetBullet(shootPoint.position, Quaternion.identity);
+                    bullet.GetComponent<Bullet>().Initialize(transform.forward);
+                    currentAmmo--; 
+                }
+            }
         }
+    }
+
+    private IEnumerator Reload()
+    {
+        isReloading = true; 
+        yield return new WaitForSeconds(reloadTime); 
+        currentAmmo = maxAmmo; 
+        isReloading = false; 
     }
 }

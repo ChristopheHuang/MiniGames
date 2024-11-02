@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Selection : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnMouseDown()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<Player>().shootInterval *= 0.5f;
-        }
+        // Player shoot bullet plus one
+        Player.Instance.shootCounts++;
     }
 }

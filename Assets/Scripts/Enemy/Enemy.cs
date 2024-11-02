@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
     private NavMeshAgent _navMeshAgent;
     private GameObject target;
-    private bool isInit = false;
     
     public float maxHealth = 100.0f;
     public float currentHealth;
@@ -16,7 +15,6 @@ public class Enemy : MonoBehaviour
     private Color originalColor;
     public float flashDuration = 0.1f;
     
-    
     public static event Action OnBroadcastMessage;
 
     void Start()
@@ -24,8 +22,8 @@ public class Enemy : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
 
-        enemyMaterial = GetComponent<Renderer>().material; 
-        originalColor = enemyMaterial.color;
+        // enemyMaterial = GetComponentInChildren<SkinnedMeshRenderer>().material; 
+        // originalColor = enemyMaterial.color;
         
         target = GameObject.FindGameObjectWithTag("Wall");
     }
@@ -42,7 +40,7 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= damage;
         
-        StartCoroutine(FlashWhite());
+        // StartCoroutine(FlashWhite());
         
         if (currentHealth <= 0)
         {
@@ -58,11 +56,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
             BulletPool.Instance.ReturnBullet(other.gameObject); 
             TakeDamage(other.gameObject.GetComponent<Bullet>().damage);
@@ -82,9 +76,9 @@ public class Enemy : MonoBehaviour
     private System.Collections.IEnumerator FlashWhite()
     {
         enemyMaterial.color = Color.white;
-
+    
         yield return new WaitForSeconds(flashDuration);
-
+    
         enemyMaterial.color = originalColor;
     }
 }
