@@ -53,6 +53,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""45662737-40d4-464f-8e44-3f835f38a73b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Focus"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7d421da-c16e-4105-a5a2-12820eaebde2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""TouchMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78dcd0c1-388e-468e-af51-d11a1b6ba775"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7a96d32-9177-430b-901d-098f49262327"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Focus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerMapping_Move = m_PlayerMapping.FindAction("Move", throwIfNotFound: true);
         m_PlayerMapping_Space = m_PlayerMapping.FindAction("Space", throwIfNotFound: true);
         m_PlayerMapping_TouchMove = m_PlayerMapping.FindAction("TouchMove", throwIfNotFound: true);
+        m_PlayerMapping_Shoot = m_PlayerMapping.FindAction("Shoot", throwIfNotFound: true);
+        m_PlayerMapping_Focus = m_PlayerMapping.FindAction("Focus", throwIfNotFound: true);
     }
 
     ~@PlayerController()
@@ -212,6 +254,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMapping_Move;
     private readonly InputAction m_PlayerMapping_Space;
     private readonly InputAction m_PlayerMapping_TouchMove;
+    private readonly InputAction m_PlayerMapping_Shoot;
+    private readonly InputAction m_PlayerMapping_Focus;
     public struct PlayerMappingActions
     {
         private @PlayerController m_Wrapper;
@@ -219,6 +263,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerMapping_Move;
         public InputAction @Space => m_Wrapper.m_PlayerMapping_Space;
         public InputAction @TouchMove => m_Wrapper.m_PlayerMapping_TouchMove;
+        public InputAction @Shoot => m_Wrapper.m_PlayerMapping_Shoot;
+        public InputAction @Focus => m_Wrapper.m_PlayerMapping_Focus;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMapping; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -237,6 +283,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @TouchMove.started += instance.OnTouchMove;
             @TouchMove.performed += instance.OnTouchMove;
             @TouchMove.canceled += instance.OnTouchMove;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @Focus.started += instance.OnFocus;
+            @Focus.performed += instance.OnFocus;
+            @Focus.canceled += instance.OnFocus;
         }
 
         private void UnregisterCallbacks(IPlayerMappingActions instance)
@@ -250,6 +302,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @TouchMove.started -= instance.OnTouchMove;
             @TouchMove.performed -= instance.OnTouchMove;
             @TouchMove.canceled -= instance.OnTouchMove;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @Focus.started -= instance.OnFocus;
+            @Focus.performed -= instance.OnFocus;
+            @Focus.canceled -= instance.OnFocus;
         }
 
         public void RemoveCallbacks(IPlayerMappingActions instance)
@@ -272,5 +330,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnTouchMove(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnFocus(InputAction.CallbackContext context);
     }
 }
