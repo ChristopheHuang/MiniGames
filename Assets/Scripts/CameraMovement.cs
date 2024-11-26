@@ -1,39 +1,53 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    public Transform target; 
-    public Vector3 offset = new Vector3(0, 3, -5); 
-    public float rotationSpeed = 600;  
-    public float minPitch = -30f;  
-    public float maxPitch = 60f;  
-    public float distanceDamping = 0.1f;  
+    [Header("Target Settings")]
+    public Transform target;
 
-    private float currentYaw = 0f;  
-    private float currentPitch = 0f;  
-    private Vector3 currentOffset;
+    [Header("Camera Settings")]
+    public float distance = 5.0f; 
+    public float pitchSpeed = 150.0f; 
+    public float yawSpeed = 150.0f; 
+    public float minPitch = -89.0f; 
+    public float maxPitch = 89.0f; 
 
-    private void Start()
+    private float currentYaw = 0.0f; 
+    private float currentPitch = 0.0f; 
+
+    void Start()
     {
-        currentOffset = offset;
+        
+        if (target != null)
+        {
+            Vector3 direction = transform.position - target.position;
+            distance = direction.magnitude;
+            currentYaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            currentPitch = Mathf.Asin(direction.y / distance) * Mathf.Rad2Deg;
+        }
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-        float horizontalInput = mouseDelta.x * rotationSpeed * Time.deltaTime;
-        float verticalInput = -mouseDelta.y * rotationSpeed * Time.deltaTime;
+        if (target == null) return;
 
-        currentYaw += horizontalInput;
-        currentPitch = Mathf.Clamp(currentPitch + verticalInput, minPitch, maxPitch);
+        
+        float mouseX = Input.GetAxis("Mouse X"); 
+        float mouseY = Input.GetAxis("Mouse Y"); 
 
+        
+        currentYaw += mouseX * yawSpeed * Time.deltaTime;
+        currentPitch -= mouseY * pitchSpeed * Time.deltaTime;
+
+        
+        currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
+
+        
         Quaternion rotation = Quaternion.Euler(currentPitch, currentYaw, 0);
-        Vector3 desiredPosition = target.position + rotation * offset;
+        Vector3 offset = rotation * Vector3.back * distance;
 
-        currentOffset = Vector3.Lerp(currentOffset, desiredPosition - target.position, distanceDamping);
-        transform.position = target.position + currentOffset;
-
-        transform.LookAt(target.position);
+        
+        transform.position = target.position + offset;
+        transform.LookAt(target);
     }
 }

@@ -5,7 +5,7 @@ public class Frog : MonoBehaviour
 {
     private PlayerController _playerController;
     private Rigidbody _rigidbody;
-    public float speed = 5.0f;
+    public float speed = 10.0f;
     public Transform shootPoint;
     public GameObject bulletPrefab;
     
@@ -26,21 +26,41 @@ public class Frog : MonoBehaviour
         Vector2 moveInput = _playerController.PlayerMapping.Move.ReadValue<Vector2>();
         if (moveInput != Vector2.zero)
         {
-            // Add force to the frog
-            _rigidbody.AddForce(Camera.main.transform.forward * speed, ForceMode.Impulse);
+            // Move on the camera direction
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0;
+            cameraForward.Normalize();
+            Vector3 cameraRight = Camera.main.transform.right;
+            cameraRight.y = 0;
+            cameraRight.Normalize();
+            
+            Vector3 moveDirection = cameraForward * moveInput.y + cameraRight * moveInput.x;
+            transform.position += moveDirection * speed * Time.deltaTime;
         }
     }
     void ShootAction()
     {
         if (_playerController.PlayerMapping.Shoot.WasPressedThisFrame())
         {
-            // Add a Force to the frog
-            _rigidbody.AddForce(transform.forward * -1, ForceMode.Impulse);
             AddRandomForce();
-            
-            // Generate a bullet
+            FireShotGun();
+        }
+    }
+    
+    public int bulletCount = 5;
+    public float spreadAngle = 10f; 
+    void FireShotGun()
+    {
+        for (int i = 0; i < bulletCount; i++)
+        {
+            Quaternion randomRotation = Quaternion.Euler(
+                Random.Range(-spreadAngle, spreadAngle),
+                Random.Range(-spreadAngle, spreadAngle),
+                0
+            );
+            Vector3 shootDirection = randomRotation * transform.forward;
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-            bullet.GetComponent<FrogBullet>().Initialize(transform.forward);
+            bullet.GetComponent<FrogBullet>().Initialize(shootDirection);
         }
     }
 

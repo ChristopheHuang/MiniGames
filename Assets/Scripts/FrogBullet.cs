@@ -26,6 +26,7 @@ public class FrogBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            Destroy(other.gameObject);
             Destroy(gameObject);
         }
     }

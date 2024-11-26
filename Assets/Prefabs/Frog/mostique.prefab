@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803cd4d4c5b4dc44bf3684e6dd9add0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
 --- !u!95 &8310076493361619048
 Animator:
   serializedVersion: 7
@@ -171,11 +172,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.96
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

@@ -3,6 +3,7 @@ using UnityEngine;
 public class Mostique : MonoBehaviour
 {
     private GameObject player;
+    [SerializeField] private float speed = 2.0f;
     void Start()
     {  
         player = GameObject.FindGameObjectWithTag("Player");
@@ -12,6 +13,7 @@ public class Mostique : MonoBehaviour
     {
         transform.LookAt(player.transform);
         // Chase the player
-        transform.position += transform.forward * 0.5f * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
+    
 }
