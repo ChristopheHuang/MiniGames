@@ -3,6 +3,21 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<GameManager>();
+            }
+
+            return _instance;
+        }
+    }
+    
     public int counts = 0;
     public Text countText;
     private void OnEnable()
@@ -16,6 +31,11 @@ public class GameManager : MonoBehaviour
     }
 
     private void OnReceiveMessage()
+    {
+        counts += 1;
+    }
+    
+    public void ScorePlus()
     {
         counts += 1;
     }

@@ -9,6 +9,10 @@ public class Frog : MonoBehaviour
     public Transform shootPoint;
     public GameObject bulletPrefab;
     
+    private Quaternion _targetRotation;
+    private float _turnDuration = 0.2f;
+    private float _turnTimer;
+    
     private void Start()
     {
         _playerController = new PlayerController();
@@ -19,6 +23,8 @@ public class Frog : MonoBehaviour
         Cursor.visible = false;
 
         Cursor.lockState = CursorLockMode.Locked;
+        
+        _targetRotation = transform.rotation;
     }
 
     void MoveAction()
@@ -73,6 +79,8 @@ public class Frog : MonoBehaviour
     
     void AddRandomForce()
     {
+        _rigidbody.linearVelocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
         // Add force on the shoot point
         Vector3 randomDirection = new Vector3(
             Random.Range(-1f, 1f),
@@ -87,11 +95,15 @@ public class Frog : MonoBehaviour
     {
         if (_playerController.PlayerMapping.Focus.IsPressed())
         {
-            // Vector3 targetDirection = Camera.main.transform.forward;
-            // targetDirection.y = 0;
-            // transform.rotation = Quaternion.LookRotation(targetDirection);
-            
-            transform.LookAt(Camera.main.transform.position + Camera.main.transform.forward * 10000);
+            Vector3 targetDirection = Camera.main.transform.forward;
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                0.1f 
+            );
             
             Time.timeScale = 0.2f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
@@ -118,6 +130,7 @@ public class Frog : MonoBehaviour
             Cursor.visible = false;
         }
     }
+    
     void InputActions()
     {  
         MoveAction();
@@ -130,4 +143,23 @@ public class Frog : MonoBehaviour
     {
         InputActions();
     }
+    
+    void FixedUpdate()
+    {
+        ApplyHorizontalFriction();
+    }
+
+    void ApplyHorizontalFriction()
+    {
+        Vector3 horizontalVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
+
+        float frictionStrength = 5f; 
+        Vector3 frictionForce = -horizontalVelocity.normalized * horizontalVelocity.magnitude * frictionStrength;
+
+        if (horizontalVelocity.magnitude > 0.01f)
+        {
+            _rigidbody.AddForce(frictionForce, ForceMode.Acceleration);
+        }
+    }
+
 }

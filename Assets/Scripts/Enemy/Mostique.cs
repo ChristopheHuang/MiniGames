@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Mostique : MonoBehaviour
@@ -15,5 +16,10 @@ public class Mostique : MonoBehaviour
         // Chase the player
         transform.position += transform.forward * speed * Time.deltaTime;
     }
-    
+
+    public void Die()
+    {
+        GameManager.Instance.ScorePlus();
+        Destroy(gameObject);
+    }
 }
