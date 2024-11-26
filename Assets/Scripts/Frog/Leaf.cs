@@ -10,7 +10,6 @@ public class Leaf : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player touch the leaf!");
             other.gameObject.GetComponent<Frog>().JumpAction();
         }
     }

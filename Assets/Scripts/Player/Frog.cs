@@ -161,5 +161,13 @@ public class Frog : MonoBehaviour
             _rigidbody.AddForce(frictionForce, ForceMode.Acceleration);
         }
     }
-
+    
+    public GameObject deathPanel;
+    public void Die()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        deathPanel.SetActive(true);
+        Destroy(gameObject);
+    }
 }
