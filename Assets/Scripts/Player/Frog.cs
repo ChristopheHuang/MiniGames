@@ -13,6 +13,10 @@ public class Frog : MonoBehaviour
     private float _turnDuration = 0.2f;
     private float _turnTimer;
     
+    public float shootRate = 0.5f;
+    private float originShootRate;
+
+    
     private void Start()
     {
         _playerController = new PlayerController();
@@ -25,6 +29,8 @@ public class Frog : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         
         _targetRotation = transform.rotation;
+
+        originShootRate = shootRate;
     }
 
     void MoveAction()
@@ -44,13 +50,43 @@ public class Frog : MonoBehaviour
             transform.position += moveDirection * speed * Time.deltaTime;
         }
     }
+    
+    public GameObject shootEffect;
+    public AudioClip soundEffect;
     void ShootAction()
     {
+        if (shootRate > 0) return;
+        
         if (_playerController.PlayerMapping.Shoot.WasPressedThisFrame())
         {
+            ResetShootRate();
+            GameObject effect = Instantiate(shootEffect, shootPoint.position, Quaternion.identity);
+
+            float scaleFactor = 0.3f; 
+            effect.transform.localScale = Vector3.one * scaleFactor;
+            Destroy(effect, 2.0f);
+
+            PlaySoundIgnoringTimeScale();
+            
             AddRandomForce();
             FireShotGun();
         }
+    }
+    
+    void PlaySoundIgnoringTimeScale()
+    {
+        AudioSource audioSource = new GameObject("TempAudio").AddComponent<AudioSource>();
+        audioSource.clip = soundEffect;
+        audioSource.transform.position = shootPoint.position;
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0; 
+        
+        audioSource.volume = 0.5f;
+        
+        audioSource.Play();
+
+        Destroy(audioSource.gameObject, soundEffect.length);
     }
     
     public int bulletCount = 5;
@@ -147,6 +183,13 @@ public class Frog : MonoBehaviour
     void FixedUpdate()
     {
         ApplyHorizontalFriction();
+        
+        shootRate -= Time.deltaTime;
+    }
+
+    void ResetShootRate()
+    {
+        shootRate = originShootRate;
     }
 
     void ApplyHorizontalFriction()
@@ -167,6 +210,7 @@ public class Frog : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        _playerController.PlayerMapping.Disable();
         deathPanel.SetActive(true);
         Destroy(gameObject);
     }

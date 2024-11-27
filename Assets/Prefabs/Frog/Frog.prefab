@@ -157,7 +157,13 @@ MonoBehaviour:
   speed: 0.05
   shootPoint: {fileID: 4042977416229600835}
   bulletPrefab: {fileID: 5178345094825340079, guid: 0a000c6d09e50064c9e2d480cfc2cec2, type: 3}
+  shootRate: 0.5
+  shootEffect: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  soundEffect: {fileID: 8300000, guid: b8f4efc012c68214689d1820e0685fe0, type: 3}
+  bulletCount: 5
+  spreadAngle: 10
   randomForceStrength: 5
+  deathPanel: {fileID: 0}
 --- !u!136 &5715087604088231913
 CapsuleCollider:
   m_ObjectHideFlags: 0

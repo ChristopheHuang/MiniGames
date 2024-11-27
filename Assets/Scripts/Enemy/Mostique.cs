@@ -26,6 +26,15 @@ public class Mostique : MonoBehaviour
     
     bool isDied = false;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player is killed by Mostique");
+            other.gameObject.GetComponent<Frog>().Die();
+        }
+    }
+
     public void Die()
     {
         if (isDied) return;
