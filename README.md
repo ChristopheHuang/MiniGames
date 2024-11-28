@@ -9,19 +9,6 @@
 
 ## 🕹️ Controls & 📄 Specificities
 
-| **Action**          | **Key**             | **Specificity**         | **Information**         |
-|:-------------------:|:-------------------:|:-----------------------:|:-----------------------:|
-| Move Forward        | W                   | Engine                  | Unity 6000.0.25f1       |
-| Move Right          | A                   | Development Platform    | Windows 11              |
-| Move Backward       | S                   | Targeted Platform       | Windows                |
-| Move Left           | D                   | VCS                     | Github                 |
-| Move Camera         | Mouse               |                         |                         |
-| Shoot               | Left Mouse Button   |                         |                         |
-| Focus               | Right Mouse Button  |                         |                         |
-| Menu                | Escape              |                         |                         |
-
-## 🕹️ Controls & 📄 Specificities
-
 <table style="width: 100%; table-layout: fixed;">
   <tr>
     <td style="width: 50%; vertical-align: top;">
