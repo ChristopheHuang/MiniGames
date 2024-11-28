@@ -1,5 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum GameState
+{
+    Playing,
+    Paused,
+    GameOver
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +25,8 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+    
+    public GameState gameState = GameState.Playing;
     
     public int counts = 0;
     public Text countText;
@@ -40,8 +50,33 @@ public class GameManager : MonoBehaviour
         counts += 1;
     }
     
-    private void Update()
+    private void ShowKillCount()
     {
         countText.text = "Kill Count: " + counts;
+
+    }
+    
+    private void Update()
+    {
+        ShowKillCount();
+        
+        switch (gameState)
+        {
+            case GameState.Playing:
+                Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                break;
+            case GameState.Paused:
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                break;
+            case GameState.GameOver:
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                break;
+        }
     }
 }

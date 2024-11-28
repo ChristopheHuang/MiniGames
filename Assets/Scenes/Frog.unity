@@ -3939,6 +3939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da09b48e8e86d745876395be8af9f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterPrefabs: []
   monsterPrefab: {fileID: 4676825626779005443, guid: eb9cf33f7449347488e478ae5e99dec4, type: 3}
 --- !u!4 &925920574
 Transform:
@@ -7451,6 +7452,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5767561762230308491, guid: e08ed716344e5e749b109a7f11f4be4f, type: 3}
   m_PrefabInstance: {fileID: 382085444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2089190304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 503535486538717359, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+  m_PrefabInstance: {fileID: 2334831569462301289}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfee7c4b6555a714daed17781ef80c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2096636554
 GameObject:
   m_ObjectHideFlags: 0
@@ -8242,6 +8254,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 164677781434499055, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2089190304}
+    - target: {fileID: 164677781434499055, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391602126481780520, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2089190304}
+    - target: {fileID: 1391602126481780520, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959700523215079541, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2578540614459514243, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -8274,9 +8306,21 @@ PrefabInstance:
       propertyPath: m_FontData.m_HorizontalOverflow
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3557616824432459597, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5883941185286452395, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529459049531994058, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_Name
+      value: DeathPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529459049531994058, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8312745131771441663, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
       propertyPath: m_Pivot.x
@@ -8359,10 +8403,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1601680277432743507, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+--- !u!1 &2334831569462301290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1959700523215079541, guid: 9e79e556c37d18348ac7da8e4ef56350, type: 3}
+  m_PrefabInstance: {fileID: 2334831569462301289}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9196508580700226601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8383,6 +8433,10 @@ PrefabInstance:
       propertyPath: deathPanel
       value: 
       objectReference: {fileID: 1746260875}
+    - target: {fileID: 5486455966518450501, guid: 936e5498d6bfdb34b97518085a5f826a, type: 3}
+      propertyPath: pausePanel
+      value: 
+      objectReference: {fileID: 2334831569462301290}
     - target: {fileID: 8916717810295603593, guid: 936e5498d6bfdb34b97518085a5f826a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

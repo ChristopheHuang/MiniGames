@@ -17,7 +17,6 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Start()
     {
-        
         if (target != null)
         {
             Vector3 direction = transform.position - target.position;
@@ -30,22 +29,17 @@ public class ThirdPersonCamera : MonoBehaviour
     void LateUpdate()
     {
         if (target == null) return;
-
         
         float mouseX = Input.GetAxis("Mouse X"); 
         float mouseY = Input.GetAxis("Mouse Y"); 
-
         
         currentYaw += mouseX * yawSpeed * Time.deltaTime;
         currentPitch -= mouseY * pitchSpeed * Time.deltaTime;
-
         
         currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
-
         
         Quaternion rotation = Quaternion.Euler(currentPitch, currentYaw, 0);
         Vector3 offset = rotation * Vector3.back * distance;
-
         
         transform.position = target.position + offset;
         transform.LookAt(target);

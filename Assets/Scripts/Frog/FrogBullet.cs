@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class FrogBullet : MonoBehaviour
 {
-    
     public float speed = 30.0f;
-
     private Vector3 direction;
 
     public void Initialize(Vector3 shootDirection)
@@ -17,16 +15,16 @@ public class FrogBullet : MonoBehaviour
         Destroy(gameObject, 3.0f);
     }
 
-    private void Update()
-    {
-        transform.position += direction * speed * Time.deltaTime;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
+    }
+    
+    private void Update()
+    {
+        transform.position += direction * speed * Time.deltaTime;
     }
 }

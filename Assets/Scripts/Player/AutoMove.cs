@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AutoMove : MonoBehaviour
 {
+    [Header("Auto move Settings")]
     public float speed = 5.0f;
     public float moveDistance = 3.0f;
 

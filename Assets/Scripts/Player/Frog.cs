@@ -27,6 +27,7 @@ public class Frog : MonoBehaviour
     [Header("=========================================================================")]
     [Header("UI Settings")]
     public GameObject deathPanel;
+    public GameObject pausePanel;
     
     private void Start()
     {
@@ -164,7 +165,8 @@ public class Frog : MonoBehaviour
             Time.timeScale = 0.2f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-        else
+        
+        if (_playerController.PlayerMapping.Focus.WasReleasedThisFrame())
         {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
@@ -174,18 +176,12 @@ public class Frog : MonoBehaviour
     /// <summary>
     ///  Player can lock and unlock the mouse with escape key
     /// </summary>
-    void LockMouse()
+    void PauseAction()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            GameManager.Instance.gameState = GameManager.Instance.gameState = GameState.Paused;
+            pausePanel.SetActive(true);
         }
     }
     
@@ -224,8 +220,8 @@ public class Frog : MonoBehaviour
     {  
         MoveAction();
         ShootAction();
-        LockMouse();
         FocusForward();
+        PauseAction();
     }
     
     private void FixedUpdate()
