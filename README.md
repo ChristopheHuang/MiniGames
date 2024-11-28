@@ -7,28 +7,18 @@
 ## ☕ Getting Started  <!-- TODO Need to be updated/checked at the end of the project -->
 可以下载试玩demo，直接解压即可~
 
-## 🕹️ Controls
+## 🕹️ Controls & 📄 Specificities
 
-The game is played with the keyboard and mouse:
+| **Action**          | **Key**             | **Specificity**         | **Information**         |
+|:-------------------:|:-------------------:|:-----------------------:|:-----------------------:|
+| Move Forward        | W                   | Engine                  | Unity 6000.0.25f1       |
+| Move Right          | A                   | Development Platform    | Windows 11              |
+| Move Backward       | S                   | Targeted Platform       | Windows                |
+| Move Left           | D                   | VCS                     | Github                 |
+| Move Camera         | Mouse               |                         |                         |
+| Shoot               | Left Mouse Button   |                         |                         |
+| Focus               | Right Mouse Button  |                         |                         |
+| Menu                | Escape              |                         |                         |
 
-|Action         |Key               |
-|:-------------:|:----------------:|
-|Move Forward   |W                 |
-|Move Right     |A                 |
-|Move Backward  |S                 |
-|Move Left      |D                 |
-|Move Camera    |Mouse             |
-|Shoot          |Left Mouse Button |
-|Focus          |Right Mouse Button|
-|Menu           |Escape            |
-
-## 📄 Specificities
-
-|Specificity         |information            |
-|:------------------:|:---------------------:|
-|Engine              |Unity 6000.0.25f1      |
-|Development platform|Windows 11             |
-|Targeted platform   |Windows                |
-|VCS                 |Github                 |
 
 ## 📸 Screenshots <!-- TODO Need to be updated/checked at the end of the project -->
