@@ -27,3 +27,5 @@ The game is played with the keyboard and mouse:
 |Development platform|Windows 11             |
 |Targeted platform   |Windows                |
 |VCS                 |Github                 |
+
+## 📸 Screenshots <!-- TODO Need to be updated/checked at the end of the project -->
