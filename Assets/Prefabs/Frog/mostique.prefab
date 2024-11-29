@@ -138,6 +138,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803cd4d4c5b4dc44bf3684e6dd9add0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 500
+  frictionFactor: 0.1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
   speed: 2
 --- !u!95 &8310076493361619048
 Animator:

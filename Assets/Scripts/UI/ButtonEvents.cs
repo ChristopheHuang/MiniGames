@@ -4,6 +4,7 @@ public class ButtonEvents : MonoBehaviour
 {
     public void ResumeGame()
     {
+        Time.timeScale = 1;
         GameManager.Instance.gameState = GameState.Playing;
     }
     
@@ -15,6 +16,7 @@ public class ButtonEvents : MonoBehaviour
     public void StartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Frog");
+        Time.timeScale = 1;
         GameManager.Instance.gameState = GameState.Playing;
     }
 }

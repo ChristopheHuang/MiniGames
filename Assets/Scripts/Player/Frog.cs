@@ -18,6 +18,7 @@ public class Frog : MonoBehaviour
     public float shootRate = 0.5f;
     public int bulletCount = 5;
     public float spreadAngle = 10f;
+    public float bulletSize = 1.0f;
     public float randomForceStrength = 5f;
     
     private Quaternion _targetRotation;
@@ -117,6 +118,7 @@ public class Frog : MonoBehaviour
             );
             Vector3 shootDirection = randomRotation * transform.forward;
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+            bullet.transform.localScale *=  bulletSize;
             bullet.GetComponent<FrogBullet>().Initialize(shootDirection);
         }
     }

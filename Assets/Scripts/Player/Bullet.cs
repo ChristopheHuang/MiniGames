@@ -28,7 +28,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<Mostique>().Die();
             Destroy(GameObject.Instantiate(hitEffect, transform.position, Quaternion.identity), 1);
         }
     }

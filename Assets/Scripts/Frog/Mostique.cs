@@ -1,13 +1,11 @@
 using System;
 using UnityEngine;
 
-public class Mostique : MonoBehaviour
+public class Mostique : Character
 {
     [Header("Mostique Settings")]
     private GameObject player;
     public float speed = 2.0f;
-    
-    private bool isDied = false;
     
     private void Start()
     {  
@@ -20,14 +18,6 @@ public class Mostique : MonoBehaviour
         {
             other.gameObject.GetComponent<Frog>().Die();
         }
-    }
-
-    public void Die()
-    {
-        if (isDied) return;
-        isDied = true;
-        GameManager.Instance.ScorePlus();
-        Destroy(gameObject);
     }
     
     private void Update()

@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class FrogBullet : MonoBehaviour
 {
+    [Header("Bullet Settings")]
+    public float damage = 50.0f;
     public float speed = 30.0f;
+    public float force = 10.0f;
     private Vector3 direction;
 
     public void Initialize(Vector3 shootDirection)
@@ -19,6 +22,8 @@ public class FrogBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            other.gameObject.GetComponent<Character>().TakeDamage(damage);
+            other.gameObject.GetComponent<Character>().ApplyForceWithBullet(-other.transform.forward, force);
             Destroy(gameObject);
         }
     }

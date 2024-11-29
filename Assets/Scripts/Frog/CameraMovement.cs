@@ -12,6 +12,9 @@ public class ThirdPersonCamera : MonoBehaviour
     public float minPitch = -89.0f; 
     public float maxPitch = 89.0f; 
 
+    [Header("Screen Offset")]
+    public Vector3 screenOffset = new Vector3(-0.5f, 0, 0); // 偏移量，x为水平偏移（负值为左）
+
     private float currentYaw = 0.0f; 
     private float currentPitch = 0.0f; 
 
@@ -42,6 +45,11 @@ public class ThirdPersonCamera : MonoBehaviour
         Vector3 offset = rotation * Vector3.back * distance;
         
         transform.position = target.position + offset;
-        transform.LookAt(target);
+
+        // 将目标位置偏移
+        Vector3 adjustedTargetPosition = target.position + transform.right * screenOffset.x + transform.up * screenOffset.y + transform.forward * screenOffset.z;
+
+        // 摄像机对准偏移后的目标位置
+        transform.LookAt(adjustedTargetPosition);
     }
 }

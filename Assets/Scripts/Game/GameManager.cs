@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
     private void ShowKillCount()
     {
         countText.text = "Kill Count: " + counts;
-
     }
     
     private void Update()
@@ -63,7 +62,6 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.Playing:
-                Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 break;
