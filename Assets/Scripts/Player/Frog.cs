@@ -10,6 +10,7 @@ public class Frog : MonoBehaviour
     [Header("Player Settings")]
     public float speed = 10.0f;
     public Transform shootPoint;
+    private int level;
     [Header("=========================================================================")]
     [Header("Shooting Settings")]
     public GameObject bulletPrefab;
@@ -29,6 +30,9 @@ public class Frog : MonoBehaviour
     [Header("UI Settings")]
     public GameObject deathPanel;
     public GameObject pausePanel;
+    [Header("=========================================================================")]
+    [Header("Drones Settings")]
+    public GameObject dronePrefab;
     
     private void Start()
     {
@@ -208,8 +212,7 @@ public class Frog : MonoBehaviour
     /// </summary>
     public void Die()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        GameManager.Instance.gameState = GameState.GameOver;
         _playerController.PlayerMapping.Disable();
         deathPanel.SetActive(true);
         Destroy(gameObject);
@@ -236,5 +239,37 @@ public class Frog : MonoBehaviour
     private void Update()
     {
         InputActions();
+    }
+    
+    /// <summary>
+    /// 升级模块
+    /// </summary>
+    
+    public void UpdateLevel(int _level)
+    {
+        level += _level;
+        Debug.Log("Level Up! Current Level: " + level);
+        ShootUpgrade();
+        GetDrones();
+    }
+     
+    public void BasicUpgrade()
+    {
+        speed += 5;
+        randomForceStrength += 1;
+    }
+    
+    public void ShootUpgrade()
+    {
+        bulletSize += 0.1f;
+        bulletCount += 1;
+        shootRate -= 0.1f;
+        _originShootRate = shootRate;
+        spreadAngle -= 1;
+    }
+
+    public void GetDrones() 
+    {
+        Instantiate(dronePrefab, transform.position, Quaternion.identity);
     }
 }

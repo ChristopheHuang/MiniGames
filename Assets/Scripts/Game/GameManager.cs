@@ -25,11 +25,19 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+    private Frog _player;
     
     public GameState gameState = GameState.Playing;
     
     public int counts = 0;
     public Text countText;
+    public int expNeed = 10;
+
+    private void Start()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Frog>();
+    }
+
     private void OnEnable()
     {
         Enemy.OnBroadcastMessage += OnReceiveMessage;
@@ -53,6 +61,13 @@ public class GameManager : MonoBehaviour
     private void ShowKillCount()
     {
         countText.text = "Kill Count: " + counts;
+
+        // Call player upgrade when the player reaches the required experience (expNeed)
+        if (counts >= expNeed)
+        {
+            _player.UpdateLevel(1);
+            expNeed += 10;
+        }
     }
     
     private void Update()
