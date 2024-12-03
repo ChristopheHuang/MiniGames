@@ -13,7 +13,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public float maxPitch = 89.0f; 
 
     [Header("Screen Offset")]
-    public Vector3 screenOffset = new Vector3(-0.5f, 0, 0); // 偏移量，x为水平偏移（负值为左）
+    public Vector3 screenOffset = new Vector3(-5f, 0, 0); // 偏移量，x为水平偏移（负值为左）
 
     private float currentYaw = 0.0f; 
     private float currentPitch = 0.0f; 

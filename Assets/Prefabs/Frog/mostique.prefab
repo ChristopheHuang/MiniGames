@@ -147,6 +147,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   speed: 2
+  deathEffectPrefab: {fileID: 4185576391268931029, guid: 7c069e93c2e40a84fb510d14c2993dab, type: 3}
 --- !u!95 &8310076493361619048
 Animator:
   serializedVersion: 7

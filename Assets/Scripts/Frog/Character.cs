@@ -13,6 +13,8 @@ public class Character : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnDeath;       // 死亡事件
     public UnityEvent OnTakeDamage;  // 受伤事件
+    
+    public GameObject deathEffectPrefab;
 
     protected bool isDead = false;
 
@@ -74,6 +76,11 @@ public class Character : MonoBehaviour
         isDead = true;
         GameManager.Instance.ScorePlus();
         OnDeath?.Invoke();
+        if (deathEffectPrefab)
+        {
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        }
+        
         Destroy(gameObject);
     }
 }
