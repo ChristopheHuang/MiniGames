@@ -11,7 +11,8 @@ public class MonsterSpawner : MonoBehaviour
     
     public void SpawnMonster()
     {
-        Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+        GameObject monster = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+        monster.GetComponent<Character>().Upgrade(player.GetComponent<Frog>().level);
     }
 
     private void Start()
@@ -20,6 +21,9 @@ public class MonsterSpawner : MonoBehaviour
         InvokeRepeating(nameof(SpawnMonster), 1.0f, 2.0f);
     }
 
+    /// <summary>
+    /// 随机位置生成
+    /// </summary>
     private void RandomwMove()
     {
         if (player == null) return;

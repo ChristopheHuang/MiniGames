@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LeavesGenerater : MonoBehaviour
@@ -9,6 +10,7 @@ public class LeavesGenerater : MonoBehaviour
     public int mapSize = 50;
     public int maxSize = 5;
     public int minSize = 1;
+    public List<GameObject> leaves;
     
     private void Start()
     {
@@ -22,6 +24,7 @@ public class LeavesGenerater : MonoBehaviour
             Vector3 randomPosition = new Vector3(randomX, 0.3f, randomZ);
             GameObject leaf = Instantiate(leafPrefab, randomPosition, Quaternion.Euler(0, randomRotation, 0));
             leaf.transform.localScale = new Vector3(randomRadius, 2, randomRadius);
+            leaves.Add(leaf);
         }
     }
 

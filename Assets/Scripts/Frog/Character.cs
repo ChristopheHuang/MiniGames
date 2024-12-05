@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     private float currentHealth;
     [SerializeField] private float frictionFactor = 0.95f; // 速度衰减系数（0.95 表示每帧减少 5%）
     private Rigidbody rb;
+    public float speed;
     
     [Header("Events")]
     public UnityEvent OnDeath;       // 死亡事件
@@ -65,6 +66,21 @@ public class Character : MonoBehaviour
     public float GetCurrentHealthPercent()
     {
         return maxHealth > 0 ? currentHealth / maxHealth : 0;
+    }
+    
+    /// <summary>
+    ///  升级敌人
+    ///  1. 增加生命值
+    ///  2. 增加速度
+    ///  </summary>
+    
+    public virtual void Upgrade(int level)
+    {
+        if (level == 0) return;
+        speed *= Mathf.Pow(1.005f, level);
+        maxHealth *= Mathf.Pow(1.1f, level);
+        currentHealth = maxHealth;
+        Debug.Log("Upgrade! Current monster Level: " + level);
     }
 
     /// <summary>

@@ -26,16 +26,16 @@ public class GameManager : MonoBehaviour
         }
     }
     private Frog _player;
-    
     public GameState gameState = GameState.Playing;
-    
     public int counts = 0;
     public Text countText;
     public int expNeed = 10;
+    public AudioListener _audioListener;
 
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Frog>();
+        _audioListener = Camera.main.gameObject.GetComponent<AudioListener>();
     }
 
     private void OnEnable()
@@ -70,6 +70,30 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public void GameStatePlaying()
+    {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        gameState = GameState.Playing;
+    }
+    
+    public void GameStatePaused()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        gameState = GameState.Paused;
+    }
+    
+    public void GameStateGameOver()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        gameState = GameState.GameOver;
+    }
+    
     private void Update()
     {
         ShowKillCount();
@@ -77,18 +101,10 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.Playing:
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
                 break;
             case GameState.Paused:
-                Time.timeScale = 0;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
                 break;
             case GameState.GameOver:
-                Time.timeScale = 0;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
                 break;
         }
     }

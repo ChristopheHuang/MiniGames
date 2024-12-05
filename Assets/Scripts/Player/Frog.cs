@@ -10,7 +10,8 @@ public class Frog : MonoBehaviour
     [Header("Player Settings")]
     public float speed = 10.0f;
     public Transform shootPoint;
-    private int level;
+    public int level;
+    public GameObject upgradePanel;
     [Header("=========================================================================")]
     [Header("Shooting Settings")]
     public GameObject bulletPrefab;
@@ -105,7 +106,7 @@ public class Frog : MonoBehaviour
         audioSource.transform.position = shootPoint.position;
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 0; 
-        audioSource.volume = 0.5f;
+        audioSource.volume = 0.25f;
         audioSource.Play();
 
         Destroy(audioSource.gameObject, soundEffect.length);
@@ -186,7 +187,7 @@ public class Frog : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.Instance.gameState = GameManager.Instance.gameState = GameState.Paused;
+            GameManager.Instance.GameStatePaused();
             pausePanel.SetActive(true);
         }
     }
@@ -249,22 +250,49 @@ public class Frog : MonoBehaviour
     {
         level += _level;
         Debug.Log("Level Up! Current Level: " + level);
-        ShootUpgrade();
+        // ShootUpgrade();
+        ActivateUpgradePanel();
         GetDrones();
     }
+    
+    /// <summary>
+    /// 激活升级选项
+    /// </summary>
+    public void ActivateUpgradePanel()
+    {
+        upgradePanel.SetActive(true);
+        GameManager.Instance.GameStatePaused();
+    }
      
-    public void BasicUpgrade()
+    /// <summary>
+    /// 基础升级 移动速度 
+    /// </summary>
+    public void MoveSpeedUpgrade()
     {
         speed += 5;
-        randomForceStrength += 1;
+    }
+    
+    /// <summary>
+    ///  子弹数量升级
+    /// </summary>
+    public void ShootCountsUpgrade()
+    {
+        bulletCount += 1;
+    }
+    
+    /// <summary>
+    ///  射击速率升级
+    /// </summary>
+    public void ShootRateUpgrade()
+    {
+        _originShootRate *= 0.95f;
     }
     
     public void ShootUpgrade()
     {
         bulletSize += 0.1f;
         bulletCount += 1;
-        shootRate -= 0.1f;
-        _originShootRate = shootRate;
+        _originShootRate *= 0.95f;
         spreadAngle -= 1;
     }
 

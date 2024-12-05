@@ -5,7 +5,6 @@ public class Mostique : Character
 {
     [Header("Mostique Settings")]
     private GameObject player;
-    public float speed = 2.0f;
     
     private void Start()
     {  
@@ -19,6 +18,7 @@ public class Mostique : Character
             other.gameObject.GetComponent<Frog>().Die();
         }
     }
+
     
     private void Update()
     {
