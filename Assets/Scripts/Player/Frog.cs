@@ -74,7 +74,7 @@ public class Frog : MonoBehaviour
     private void ShootAction()
     {
         if (shootRate > 0) return;
-        
+        if (GameManager.Instance.gameState == GameState.Paused) return;
         if (_playerController.PlayerMapping.Shoot.WasPressedThisFrame())
         {
             ResetShootRate();
@@ -157,6 +157,7 @@ public class Frog : MonoBehaviour
     /// </summary>
     void FocusForward()
     {
+        if (GameManager.Instance.gameState == GameState.Paused) return;
         if (_playerController.PlayerMapping.Focus.IsPressed())
         {
             Vector3 targetDirection = Camera.main.transform.forward;
@@ -216,6 +217,7 @@ public class Frog : MonoBehaviour
         GameManager.Instance.gameState = GameState.GameOver;
         _playerController.PlayerMapping.Disable();
         deathPanel.SetActive(true);
+        GameManager.Instance.GameStatePaused();
         Destroy(gameObject);
     }
     
